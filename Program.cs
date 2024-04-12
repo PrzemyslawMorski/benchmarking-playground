@@ -1,4 +1,6 @@
 ﻿using BenchmarkDotNet.Running;
 using BenchmarkingPlayground;
+using BenchmarkingPlayground.ForEachVsTaskWhenAll;
+using BenchmarkingPlayground.StringVsSpan;
 
-BenchmarkRunner.Run(typeof(ForEachVsTaskWhenAll).Assembly);
+BenchmarkRunner.Run(typeof(StringVsSpan).Assembly);

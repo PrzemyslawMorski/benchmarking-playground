@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 
-namespace BenchmarkingPlayground;
+namespace BenchmarkingPlayground.ForEachVsTaskWhenAll;
 
 public class ForEachVsTaskWhenAll
 {
