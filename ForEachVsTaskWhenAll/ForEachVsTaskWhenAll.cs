@@ -4,6 +4,8 @@ namespace BenchmarkingPlayground;
 
 public class ForEachVsTaskWhenAll
 {
+    private const int NumIterations = 500;
+    
     private Task Method1Async()
     {
         return Task.Run(() =>
@@ -18,7 +20,7 @@ public class ForEachVsTaskWhenAll
     [Benchmark]
     public async Task ForEachLoopAsync()
     {
-        var loop = Enumerable.Range(1, 50);
+        var loop = Enumerable.Range(1, NumIterations);
 
         foreach (var l in loop)
         {
@@ -29,13 +31,14 @@ public class ForEachVsTaskWhenAll
     [Benchmark]
     public async Task ForEachMethodAsync()
     {
-        var loop = Enumerable.Range(1, 50).ToList();
+        var loop = Enumerable.Range(1, NumIterations).ToList();
         loop.ForEach(async _ => await Method1Async());
     }
 
     [Benchmark]
     public Task TaskWhenAllAsync()
     {
-        return Task.WhenAll(Enumerable.Range(1, 50).Select(_ => Method1Async()));
+        // Task.WhenAll will lose the order of the tasks, also exception/failure handling is more complicated, but could use FluentResults for that
+        return Task.WhenAll(Enumerable.Range(1, NumIterations).Select(_ => Method1Async()));
     }
 }
